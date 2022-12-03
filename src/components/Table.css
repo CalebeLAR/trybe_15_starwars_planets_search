@@ -1,0 +1,16 @@
+table {
+  margin: auto;
+  text-align: center;
+  color: white;
+  padding: 3vh;
+  background-color: #000000;
+}
+
+thead {
+  background-color: #2E3035;
+}
+
+td, th {
+  border:solid #ffffff 1px;
+  width: 200px;
+}

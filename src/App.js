@@ -1,8 +1,12 @@
 import React from 'react';
+import Table from './components/Table';
 
 function App() {
   return (
-    <span>Hello, App!</span>
+    <main>
+      <h1>Planet star warts</h1>
+      <Table />
+    </main>
   );
 }
 
