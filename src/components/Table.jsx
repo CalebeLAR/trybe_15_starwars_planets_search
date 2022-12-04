@@ -19,8 +19,8 @@ function Table() {
           <th>Surface Water</th>
           <th>Population</th>
           <th>Films</th>
-          <th>created</th>
-          <th>edited</th>
+          <th>Created</th>
+          <th>Edited</th>
           <th>url</th>
         </tr>
       </thead>
@@ -28,19 +28,19 @@ function Table() {
         {
           dataRequest.map((planet) => (
             <tr key={ planet.name }>
-              <td>{planet.name}</td>
-              <td>{planet.Rotation}</td>
-              <td>{planet.orbital_period}</td>
-              <td>{planet.diameter}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.gravity}</td>
-              <td>{planet.terrain}</td>
-              <td>{planet.surface_water}</td>
-              <td>{planet.population}</td>
-              <td>{planet.films}</td>
-              <td>{planet.population}</td>
-              <td>{planet.population}</td>
-              <td>{planet.population}</td>
+              <td><p>{planet.name}</p></td>
+              <td><p>{planet.rotation_period}</p></td>
+              <td><p>{planet.orbital_period}</p></td>
+              <td><p>{planet.diameter}</p></td>
+              <td><p>{planet.climate}</p></td>
+              <td><p>{planet.gravity}</p></td>
+              <td><p>{planet.terrain}</p></td>
+              <td><p>{planet.surface_water}</p></td>
+              <td><p>{planet.population}</p></td>
+              <td>{planet.films.map((fil, i) => (<p key={ i }>{`\n${fil}`}</p>))}</td>
+              <td><p>{planet.created}</p></td>
+              <td><p>{planet.edited}</p></td>
+              <td><p>{planet.url}</p></td>
             </tr>
           ))
         }
