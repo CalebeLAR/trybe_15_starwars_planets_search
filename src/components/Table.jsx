@@ -1,6 +1,9 @@
+import { useContext } from 'react';
+import SearchedPlanets from '../hooks/SearchedPlanets';
 import './Table.css';
 
 function Table() {
+  const dataRequest = useContext(SearchedPlanets);
   return (
     <table>
       <thead>

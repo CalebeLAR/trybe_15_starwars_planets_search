@@ -1,27 +1,27 @@
 import { useState, useEffect } from 'react';
 import Table from '../components/Table';
+import SearchedPlanets from '../hooks/SearchedPlanets';
 
 function App() {
   const [dataRequest, setDateRequest] = useState([]);
 
-  const mountDataPlanets = (arrayEntries) => {
-    const obj = {};
-    arrayEntries.forEach((entires) => {
-      const [key, value] = entires;
-      obj[key] = value;
-    });
-    return obj;
-  };
-
   const removeResidentsAndSetData = (results) => {
-    const newPlanetData = [];
-    results.forEach((planet) => {
-      const first = Object.entries(planet);
-      const second = first.filter((entries) => entries[0] !== 'residents');
-      const third = mountDataPlanets(second);
-      newPlanetData.push(third);
+    results.forEach((element, index, array) => {
+      if (element.residents) {
+        // monta um novo objeto
+        const newObj = {};
+        const keys = Object.keys(element);
+        keys.forEach((key) => {
+          if (key !== 'residents') {
+            newObj[key] = element[key];
+          }
+        });
+        // la no array results ele troca o elemento que está com o objeto com a chave residents
+        // pelo novo objeto sem essa chave
+        array[index] = newObj;
+      }
     });
-    setDateRequest(newPlanetData);
+    setDateRequest(results);
   };
 
   const fetchPlanets = () => {
@@ -39,10 +39,12 @@ function App() {
   }, []);
 
   return (
-    <main>
-      <h1>Planet star warts</h1>
-      <Table />
-    </main>
+    <SearchedPlanets.Provider value={ dataRequest }>
+      <main>
+        <h1>Planet star warts</h1>
+        <Table />l
+      </main>
+    </SearchedPlanets.Provider>
   );
 }
 
