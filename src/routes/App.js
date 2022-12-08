@@ -6,8 +6,8 @@ import SearchedPlanetsProvider from '../context/SearchedPlanetsProvider';
 function App() {
   return (
     <main>
-      <FormPlanet />
       <SearchedPlanetsProvider>
+        <FormPlanet />
         <Table />
       </SearchedPlanetsProvider>
     </main>

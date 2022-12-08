@@ -35,7 +35,6 @@ function SearchedPlanetsProvider({ children }) {
         .then((data) => data.results)
         .then((results) => removeResidentsAndSetData(results))
         .catch((error) => console.error(error));
-      // .finally(console.log('finaly'));
     };
 
     fetchPlanets();
