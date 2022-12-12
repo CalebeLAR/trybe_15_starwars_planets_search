@@ -14,16 +14,24 @@ export default function useFetchPlanet() {
             newObj[key] = element[key];
           }
         });
-        // la no array results ele troca o elemento que está com o objeto com a chave residents
-        // pelo novo objeto sem essa chave
         array[index] = newObj;
       }
     });
     setfetchedPlanets(results);
   };
 
-  return {
-    fetchedPlanets,
-    removeResidentsAndSetData,
+  const fetchPlanets = () => {
+    const URL = 'https://swapi.py4e.com/api/planets';
+    fetch(URL)
+      .then((request) => request.json())
+      .then((data) => data.results)
+      .then((results) => removeResidentsAndSetData(results))
+      .catch((error) => console.error(error));
   };
+
+  fetchPlanets();
+
+  return [
+    fetchedPlanets,
+  ];
 }

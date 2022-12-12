@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './styles/FormPlanet.css';
 
-export default function FormPlanet({ tableHeaders }) {
+export default function FormPlanet() {
   const [inputName, setInputName] = useState('');
-  console.log(tableHeaders, 'formPlanet');
   return (
     <section className="searchBar">
       <div>
@@ -23,6 +22,6 @@ export default function FormPlanet({ tableHeaders }) {
   );
 }
 
-FormPlanet.propTypes = {
-  tableHeaders: PropTypes.arrayOf({}).isRequired,
-};
+// FormPlanet.propTypes = {
+//   dataRequest: PropTypes.arrayOf({}).isRequired,
+// };

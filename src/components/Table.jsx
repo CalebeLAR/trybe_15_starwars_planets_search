@@ -4,7 +4,6 @@ import './styles/Table.css';
 
 function Table() {
   const { dataRequest } = useContext(SearchedPlanets);
-  console.log(dataRequest);
   return (
     <table>
       <thead>
