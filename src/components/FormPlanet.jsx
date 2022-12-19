@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import SearchedPlanets from '../context/SearchedPlanets';
 import './styles/FormPlanet.css';
 
 export default function FormPlanet() {
-  const [inputName, setInputName] = useState('');
+  const { inputName, handlesChange } = useContext(SearchedPlanets);
   return (
     <section className="searchBar">
       <div>
@@ -14,14 +14,10 @@ export default function FormPlanet() {
             id="nameFilter"
             value={ inputName }
             type="text"
-            onChange={ ({ target }) => setInputName(target.value) }
+            onChange={ (event) => handlesChange(event) }
           />
         </label>
       </div>
     </section>
   );
 }
-
-// FormPlanet.propTypes = {
-//   dataRequest: PropTypes.arrayOf({}).isRequired,
-// };

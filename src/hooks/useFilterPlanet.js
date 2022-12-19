@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export default function useFilterPlanet(fetchedPlanets) {
-  const [filteredPlanents, setFilteredPlanents] = useState(fetchedPlanets);
+export default function useFilterPlanet() {
+  const [filteredPlanents, setFilteredPlanents] = useState('');
 
   const handlesInputChange = ({ target }) => {
     const p = fetchedPlanets.filter((planet) => planet.name.includes(target));

@@ -3,7 +3,16 @@ import SearchedPlanets from '../context/SearchedPlanets';
 import './styles/Table.css';
 
 function Table() {
-  const { dataRequest } = useContext(SearchedPlanets);
+  const { fetchedPlanets, inputName } = useContext(SearchedPlanets);
+
+  const filterPlanets = () => {
+    const filter = fetchedPlanets.filter((planets) => planets.name.includes(inputName));
+    if (filter.length > 0) {
+      return filter;
+    }
+    return fetchedPlanets;
+  };
+
   return (
     <table>
       <thead>
@@ -25,7 +34,7 @@ function Table() {
       </thead>
       <tbody>
         {
-          dataRequest.map((planet) => (
+          filterPlanets().map((planet) => (
             <tr key={ planet.name }>
               <td><p>{planet.name}</p></td>
               <td><p>{planet.rotation_period}</p></td>
