@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import useFetchPlanet from '../hooks/useFetchPlanet';
 import SearchedPlanets from './SearchedPlanets';
 
 function SearchedPlanetsProvider({ children }) {
-  const [dataRequest] = useFetchPlanet();
-  console.log(dataRequest);
+  const [dataRequest, fetchPlanets] = useFetchPlanet();
+  useEffect(() => {
+    fetchPlanets();
+  });
   return (
     <SearchedPlanets.Provider value={ { dataRequest } }>
       {children}

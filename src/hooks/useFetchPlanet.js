@@ -29,9 +29,8 @@ export default function useFetchPlanet() {
       .catch((error) => console.error(error));
   };
 
-  fetchPlanets();
-
   return [
     fetchedPlanets,
+    fetchPlanets,
   ];
 }
