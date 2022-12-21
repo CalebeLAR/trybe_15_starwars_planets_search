@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
 export default function useInput() {
-  const [inputValue, setInputName] = useState('');
+  const [inputValue, setInput] = useState('');
 
   const handlesChange = ({ target }) => {
-    setInputName(target.value);
+    setInput(target.value);
   };
 
-  return [
+  const i = {
     inputValue,
     handlesChange,
-  ];
+  };
+
+  return i;
 }
