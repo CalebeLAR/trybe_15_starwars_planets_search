@@ -6,15 +6,19 @@ function Table() {
   const {
     fetchedPlanets,
     inputName,
-    inputColumn,
-    inputComparison,
-    inputValue,
+    // inputColumn,
+    // inputComparison,
+    // inputValue,
   } = useContext(SearchedPlanets);
 
   const filterPlanets = () => {
     const filter = fetchedPlanets.filter(
       (planets) => {
-        return planets.name.includes(inputName)
+        const filterByName = planets.name.includes(inputName);
+        // const filterColumn = planets.rotation_period.includes(inputColumn);
+        // const filterComparision = planets.name.includes(inputName);
+        // const filterValue = planets.name.includes(inputName);
+        return filterByName;
       },
     );
 
