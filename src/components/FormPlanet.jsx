@@ -24,9 +24,9 @@ export default function FormPlanet() {
           />
         </label>
       </div>
-      <div>
-        <label htmlFor="columnFilter">
-          Filtros
+      <section id="sb-col">
+        <label htmlFor="columnFilter" className="div-input">
+          <h6>Coluna</h6>
           <select
             id="columnFilter"
             data-testid="column-filter"
@@ -40,10 +40,8 @@ export default function FormPlanet() {
             <option value="surface_water">surface water</option>
           </select>
         </label>
-      </div>
-      <div>
-        <label htmlFor="comparisonFilter">
-          Operador
+        <label htmlFor="comparisonFilter" className="div-input">
+          <h6>Operador</h6>
           <select
             id="comparisonFilter"
             data-testid="comparison-filter"
@@ -55,10 +53,8 @@ export default function FormPlanet() {
             <option value="igual">igual a</option>
           </select>
         </label>
-      </div>
-      <div>
-        <label htmlFor="valueFilter">
-          <h6>FILTER POPULATION</h6>
+        <label htmlFor="valueFilter" className="div-input">
+          <h6>Valor</h6>
           <input
             data-testid="value-filter"
             id="valueFilter"
@@ -67,15 +63,14 @@ export default function FormPlanet() {
             onChange={ (event) => inputValue.handlesChange(event) }
           />
         </label>
-      </div>
-      <div>
         <button
+          id="btnFilter"
           data-testid="button-filter"
           type="button"
         >
           Filtrar
         </button>
-      </div>
+      </section>
     </section>
   );
 }
