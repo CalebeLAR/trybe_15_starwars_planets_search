@@ -18,6 +18,18 @@ export default function FormPlanet() {
           />
         </label>
       </div>
+      <div>
+        <label htmlFor="selectFilter">
+          Filtros
+          <select id="selectFilter" data-testid="column-filter">
+            <option value="population">population</option>
+            <option value="orbital_period">orbital period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation period</option>
+            <option value="surface_water">surface water</option>
+          </select>
+        </label>
+      </div>
     </section>
   );
 }
