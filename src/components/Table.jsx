@@ -3,13 +3,25 @@ import SearchedPlanets from '../context/SearchedPlanets';
 import './styles/Table.css';
 
 function Table() {
-  const { fetchedPlanets, inputName } = useContext(SearchedPlanets);
+  const {
+    fetchedPlanets,
+    inputName,
+    inputColumn,
+    inputComparison,
+    inputValue,
+  } = useContext(SearchedPlanets);
 
   const filterPlanets = () => {
-    const filter = fetchedPlanets.filter((planets) => planets.name.includes(inputName));
+    const filter = fetchedPlanets.filter(
+      (planets) => {
+        return planets.name.includes(inputName)
+      },
+    );
+
     if (filter.length > 0) {
       return filter;
     }
+
     return fetchedPlanets;
   };
 

@@ -5,8 +5,8 @@ export default function useInput() {
 
   const handlesChange = ({ target }) => {
     // handlesChange que server tanto para inputs de texto quanto selects
-    const value = (target.value) ? (target.value) : (target.checked);
-    setInput(value);
+    console.log(target.value)
+    setInput(target.value);
   };
 
   const i = {

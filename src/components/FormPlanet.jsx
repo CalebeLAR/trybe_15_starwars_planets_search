@@ -63,7 +63,7 @@ export default function FormPlanet() {
             data-testid="value-filter"
             id="valueFilter"
             value={ inputValue.inputValue }
-            type="text"
+            type="number"
             onChange={ (event) => inputValue.handlesChange(event) }
           />
         </label>
