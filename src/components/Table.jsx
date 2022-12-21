@@ -13,15 +13,9 @@ function Table() {
 
   const filterPlanets = () => {
     const filter = fetchedPlanets.filter(
-      (planets) => {
-        const filterByName = planets.name.includes(inputName);
-        // const filterColumn = planets.rotation_period.includes(inputColumn);
-        // const filterComparision = planets.name.includes(inputName);
-        // const filterValue = planets.name.includes(inputName);
-        return filterByName;
-      },
+      (planets) => planets.name.includes(inputName.inputValue),
     );
-
+    console.log(inputName, filter);
     if (filter.length > 0) {
       return filter;
     }
