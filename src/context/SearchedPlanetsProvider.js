@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import useFetchPlanet from '../hooks/useFetchPlanet';
-import useInputName from '../hooks/useInputName';
+import useInput from '../hooks/useInput';
 import SearchedPlanets from './SearchedPlanets';
 
 function SearchedPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
-  const [inputName, handlesChange] = useInputName();
+  const [inputName, ChangeName] = useInput();
+  // const [inputColumn, ChangeColumn] = useInput();
+  // const [inputColumn, ChangeColumn] = useInput();
 
   useEffect(() => {
     fetchPlanets();

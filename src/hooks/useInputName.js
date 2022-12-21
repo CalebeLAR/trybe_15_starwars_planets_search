@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-export default function useInputName() {
-  const [inputName, setInputName] = useState('');
+export default function useInput() {
+  const [inputValue, setInputName] = useState('');
 
   const handlesChange = ({ target }) => {
     setInputName(target.value);
   };
 
   return [
-    inputName,
+    inputValue,
     handlesChange,
   ];
 }

@@ -19,9 +19,9 @@ export default function FormPlanet() {
         </label>
       </div>
       <div>
-        <label htmlFor="selectFilter">
+        <label htmlFor="columnFilter">
           Filtros
-          <select id="selectFilter" data-testid="column-filter">
+          <select id="columnFilter" data-testid="column-filter">
             <option value="population">population</option>
             <option value="orbital_period">orbital period</option>
             <option value="diameter">diameter</option>
@@ -29,6 +29,31 @@ export default function FormPlanet() {
             <option value="surface_water">surface water</option>
           </select>
         </label>
+      </div>
+      <div>
+        <label htmlFor="comparisonFilter">
+          Operador
+          <select id="comparisonFilter" data-testid="comparison-filter">
+            <option value="maior">maior que</option>
+            <option value="menor">menor que</option>
+            <option value="igual">igual a</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label htmlFor="valueFilter">
+          <h6>FILTER POPULATION</h6>
+          <input
+            data-testid="value-filter"
+            id="valueFilter"
+            value={ inputValue }
+            type="text"
+            onChange={ (event) => handlesChange(event) }
+          />
+        </label>
+      </div>
+      <div>
+        <button type="button">Filtrar</button>
       </div>
     </section>
   );
