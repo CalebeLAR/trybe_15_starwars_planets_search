@@ -15,7 +15,7 @@ function Table() {
     const filter = fetchedPlanets.filter(
       (planets) => planets.name.includes(inputName.inputValue),
     );
-    console.log(inputName, filter);
+
     if (filter.length > 0) {
       return filter;
     }

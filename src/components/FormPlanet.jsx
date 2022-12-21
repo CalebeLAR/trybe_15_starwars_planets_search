@@ -69,7 +69,12 @@ export default function FormPlanet() {
         </label>
       </div>
       <div>
-        <button type="button">Filtrar</button>
+        <button
+          data-testid="button-filter"
+          type="button"
+        >
+          Filtrar
+        </button>
       </div>
     </section>
   );
