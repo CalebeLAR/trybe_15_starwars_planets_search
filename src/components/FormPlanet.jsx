@@ -3,11 +3,13 @@ import SearchedPlanets from '../context/SearchedPlanets';
 import './styles/FormPlanet.css';
 
 export default function FormPlanet() {
-  const { 
+  const {
     inputName,
     inputColumn,
     inputComparison,
-    inputValue } = useContext(SearchedPlanets);
+    inputValue,
+  } = useContext(SearchedPlanets);
+
   return (
     <section className="searchBar">
       <div>
@@ -46,7 +48,7 @@ export default function FormPlanet() {
             id="comparisonFilter"
             data-testid="comparison-filter"
             value={ inputComparison.inputValue }
-            onChange={ (event) => inputComparison.handlesChange(event)}
+            onChange={ (event) => inputComparison.handlesChange(event) }
           >
             <option value="maior">maior que</option>
             <option value="menor">menor que</option>
@@ -62,7 +64,7 @@ export default function FormPlanet() {
             id="valueFilter"
             value={ inputValue.inputValue }
             type="text"
-            onChange={ (event) => handlesChange(event) }
+            onChange={ (event) => inputValue.handlesChange(event) }
           />
         </label>
       </div>
