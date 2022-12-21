@@ -3,7 +3,11 @@ import SearchedPlanets from '../context/SearchedPlanets';
 import './styles/FormPlanet.css';
 
 export default function FormPlanet() {
-  const { inputName } = useContext(SearchedPlanets);
+  const { 
+    inputName,
+    inputColumn,
+    inputComparison,
+    inputValue } = useContext(SearchedPlanets);
   return (
     <section className="searchBar">
       <div>
@@ -18,10 +22,15 @@ export default function FormPlanet() {
           />
         </label>
       </div>
-      {/* <div>
+      <div>
         <label htmlFor="columnFilter">
           Filtros
-          <select id="columnFilter" data-testid="column-filter">
+          <select
+            id="columnFilter"
+            data-testid="column-filter"
+            value={ inputColumn.inputValue }
+            onChange={ (event) => inputColumn.handlesChange(event) }
+          >
             <option value="population">population</option>
             <option value="orbital_period">orbital period</option>
             <option value="diameter">diameter</option>
@@ -33,7 +42,12 @@ export default function FormPlanet() {
       <div>
         <label htmlFor="comparisonFilter">
           Operador
-          <select id="comparisonFilter" data-testid="comparison-filter">
+          <select
+            id="comparisonFilter"
+            data-testid="comparison-filter"
+            value={ inputComparison.inputValue }
+            onChange={ (event) => inputComparison.handlesChange(event)}
+          >
             <option value="maior">maior que</option>
             <option value="menor">menor que</option>
             <option value="igual">igual a</option>
@@ -46,7 +60,7 @@ export default function FormPlanet() {
           <input
             data-testid="value-filter"
             id="valueFilter"
-            value={ inputValue }
+            value={ inputValue.inputValue }
             type="text"
             onChange={ (event) => handlesChange(event) }
           />
@@ -54,7 +68,7 @@ export default function FormPlanet() {
       </div>
       <div>
         <button type="button">Filtrar</button>
-      </div> */}
+      </div>
     </section>
   );
 }

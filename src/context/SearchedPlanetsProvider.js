@@ -7,15 +7,21 @@ import SearchedPlanets from './SearchedPlanets';
 function SearchedPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const inputName = useInput();
-  // const [inputColumnFilter, ChangeColumnFilter] = useInput();
-  // const [inputComparisonFilter, ChangeComparisonFilter] = useInput();
-  // const [inputvalueFilter, ChangeValueFilter] = useInput();
+  const inputColumn = useInput();
+  const inputComparison = useInput();
+  const inputValue = useInput();
 
   useEffect(() => {
     fetchPlanets();
   }, []);
 
-  const value = { fetchedPlanets, inputName };
+  const value = {
+    fetchedPlanets,
+    inputName,
+    inputColumn,
+    inputComparison,
+    inputValue,
+  };
 
   return (
     <SearchedPlanets.Provider value={ value }>
