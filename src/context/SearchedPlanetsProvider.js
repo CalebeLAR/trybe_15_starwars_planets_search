@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useFetchPlanet from '../hooks/useFetchPlanet';
 import useInput from '../hooks/useInput';
 import SearchedPlanets from './SearchedPlanets';
@@ -8,8 +8,10 @@ function SearchedPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const inputName = useInput('');
   const inputColumn = useInput('population');
-  const inputComparison = useInput('igual a');
+  const inputComparison = useInput('maior que');
   const inputValue = useInput('0');
+
+  const [numericFilter, setNumericFilter] = useState('ainda não filtrado');
 
   const filterByNumericInputs = () => {
     const { inputValue: column } = inputColumn;
@@ -18,22 +20,23 @@ function SearchedPlanetsProvider({ children }) {
 
     switch (comparision) {
     case 'igual a':
-      return fetchedPlanets.filter(
+      setNumericFilter(fetchedPlanets.filter(
         (planet) => planet[column] === value,
-      );
+      ));
+      break;
     case 'maior que':
-      return fetchedPlanets.filter(
+      setNumericFilter(fetchedPlanets.filter(
         (planet) => planet[column] > value,
-      );
+      ));
+      break;
     case 'menor que':
-      return fetchedPlanets.filter(
+      setNumericFilter(fetchedPlanets.filter(
         (planet) => planet[column] < value,
-      );
+      ));
+      break;
     default:
       console.log(value);
     }
-
-    // fetchPlanets.filter((planet) => );
   };
 
   useEffect(() => {
@@ -47,6 +50,7 @@ function SearchedPlanetsProvider({ children }) {
     inputComparison,
     inputValue,
     filterByNumericInputs,
+    numericFilter,
   };
 
   return (

@@ -6,13 +6,25 @@ function Table() {
   const {
     fetchedPlanets,
     inputName,
+    numericFilter,
   } = useContext(SearchedPlanets);
 
-  // const numericFilters = () => {
-  //   const fcol = fetchedPlanets;
-  // };
-
   const filterPlanets = () => {
+    if (numericFilter !== 'ainda não filtrado') {
+      if (numericFilter.length === 0) {
+        return fetchedPlanets;
+      }
+      const filter = numericFilter.filter(
+        (planets) => planets.name.includes(inputName.inputValue),
+      );
+
+      if (filter.length > 0) {
+        return filter;
+      }
+
+      return numericFilter;
+    }
+
     const filter = fetchedPlanets.filter(
       (planets) => planets.name.includes(inputName.inputValue),
     );
@@ -30,12 +42,12 @@ function Table() {
         <tr>
           <th>Name</th>
           <th>Rotation</th>
-          <th>Orbital Priodi</th>
+          <th>Orbital_Period</th>
           <th>Diameter</th>
           <th>Climate</th>
           <th>Gravity</th>
           <th>Terrain</th>
-          <th>Surface Water</th>
+          <th>Surface_Water</th>
           <th>Population</th>
           <th>Films</th>
           <th>Created</th>
