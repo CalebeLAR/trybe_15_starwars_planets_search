@@ -21,17 +21,17 @@ function SearchedPlanetsProvider({ children }) {
     switch (comparision) {
     case 'igual a':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] === value,
+        (planet) => planet[column] === value && planet[column] !== 'unknown',
       ));
       break;
     case 'maior que':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] > value,
+        (planet) => planet[column] > value && planet[column] !== 'unknown',
       ));
       break;
     case 'menor que':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] < value,
+        (planet) => planet[column] < value && planet[column] !== 'unknown',
       ));
       break;
     default:
