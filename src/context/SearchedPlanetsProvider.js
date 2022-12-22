@@ -11,6 +11,31 @@ function SearchedPlanetsProvider({ children }) {
   const inputComparison = useInput('igual a');
   const inputValue = useInput('0');
 
+  const filterByNumericInputs = () => {
+    const { inputValue: column } = inputColumn;
+    const { inputValue: comparision } = inputComparison;
+    const { inputValue: value } = inputValue;
+
+    switch (comparision) {
+    case 'igual a':
+      return fetchedPlanets.filter(
+        (planet) => planet[column] === value,
+      );
+    case 'maior que':
+      return fetchedPlanets.filter(
+        (planet) => planet[column] > value,
+      );
+    case 'menor que':
+      return fetchedPlanets.filter(
+        (planet) => planet[column] < value,
+      );
+    default:
+      console.log(value);
+    }
+
+    // fetchPlanets.filter((planet) => );
+  };
+
   useEffect(() => {
     fetchPlanets();
   }, []);
@@ -21,6 +46,7 @@ function SearchedPlanetsProvider({ children }) {
     inputColumn,
     inputComparison,
     inputValue,
+    filterByNumericInputs,
   };
 
   return (

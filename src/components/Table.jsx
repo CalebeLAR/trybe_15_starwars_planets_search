@@ -6,10 +6,11 @@ function Table() {
   const {
     fetchedPlanets,
     inputName,
-    // inputColumn,
-    // inputComparison,
-    // inputValue,
   } = useContext(SearchedPlanets);
+
+  // const numericFilters = () => {
+  //   const fcol = fetchedPlanets;
+  // };
 
   const filterPlanets = () => {
     const filter = fetchedPlanets.filter(

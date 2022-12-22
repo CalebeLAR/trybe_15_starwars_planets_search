@@ -8,6 +8,7 @@ export default function FormPlanet() {
     inputColumn,
     inputComparison,
     inputValue,
+    filterByNumericInputs,
   } = useContext(SearchedPlanets);
 
   return (
@@ -48,9 +49,9 @@ export default function FormPlanet() {
             value={ inputComparison.inputValue }
             onChange={ (event) => inputComparison.handlesChange(event) }
           >
-            <option value="maior">maior que</option>
-            <option value="menor">menor que</option>
-            <option value="igual">igual a</option>
+            <option value="igual a">igual a</option>
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
           </select>
         </label>
         <label htmlFor="valueFilter" className="div-input">
@@ -60,6 +61,7 @@ export default function FormPlanet() {
             id="valueFilter"
             value={ inputValue.inputValue }
             type="number"
+            min={ 0 }
             onChange={ (event) => inputValue.handlesChange(event) }
           />
         </label>
@@ -67,6 +69,7 @@ export default function FormPlanet() {
           id="btnFilter"
           data-testid="button-filter"
           type="button"
+          onClick={ () => filterByNumericInputs() }
         >
           Filtrar
         </button>
