@@ -13,34 +13,28 @@ function SearchedPlanetsProvider({ children }) {
 
   const [numericFilter, setNumericFilter] = useState('ainda não filtrado');
 
-  const compareAndParseInt = (planet, column, value) => {
-    console.log(parseInt(planet[column], 10));
-    console.log('value:', typeof value);
-  }
-
   const filterByNumericInputs = () => {
+    // ela pega os valores que estão nos inputs numéricos, e usa eles para montar a condição de filtragem
+    // coloca o planeta filtrado no estado local.
     const { inputValue: column } = inputColumn;
     const { inputValue: comparision } = inputComparison;
     const { inputValue: value } = inputValue;
 
     switch (comparision) {
-    case 'igual a':
-      setNumericFilter(fetchedPlanets.filter(
-        (planet) => compareAndParseInt(planet, column, value),
-      ));
-      break;
     case 'maior que':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] > value,
+        (planet) => parseInt(planet[column], 10) > value,
       ));
       break;
     case 'menor que':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] < value,
+        (planet) => parseInt(planet[column], 10) < value,
       ));
       break;
     default:
-      console.log(value);
+      setNumericFilter(fetchedPlanets.filter(
+        (planet) => parseInt(planet[column], 10) === value,
+      ));
     }
   };
 
