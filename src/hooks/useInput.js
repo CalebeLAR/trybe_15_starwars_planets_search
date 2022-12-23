@@ -12,10 +12,10 @@ export default function useInput(initialValue) {
     // caso o numero seja maior que 0 ele seta o estado como um valor numérico
     if (number >= 0) {
       setInput(number);
+    } else {
+      // caso "value" não seja numérico ele apenas seta "value"
+      setInput(value);
     }
-
-    // caso "value" não seja numérico ele apenas seta "value"
-    setInput(value);
   };
 
   const i = {

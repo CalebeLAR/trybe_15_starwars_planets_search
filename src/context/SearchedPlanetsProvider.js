@@ -9,9 +9,14 @@ function SearchedPlanetsProvider({ children }) {
   const inputName = useInput('');
   const inputColumn = useInput('population');
   const inputComparison = useInput('maior que');
-  const inputValue = useInput('0');
+  const inputValue = useInput(0);
 
   const [numericFilter, setNumericFilter] = useState('ainda não filtrado');
+
+  const compareAndParseInt = (planet, column, value) => {
+    console.log(parseInt(planet[column], 10));
+    console.log('value:', typeof value);
+  }
 
   const filterByNumericInputs = () => {
     const { inputValue: column } = inputColumn;
@@ -21,17 +26,17 @@ function SearchedPlanetsProvider({ children }) {
     switch (comparision) {
     case 'igual a':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] === value && planet[column] !== 'unknown',
+        (planet) => compareAndParseInt(planet, column, value),
       ));
       break;
     case 'maior que':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] > value && planet[column] !== 'unknown',
+        (planet) => planet[column] > value,
       ));
       break;
     case 'menor que':
       setNumericFilter(fetchedPlanets.filter(
-        (planet) => planet[column] < value && planet[column] !== 'unknown',
+        (planet) => planet[column] < value,
       ));
       break;
     default:
