@@ -5,6 +5,7 @@ import useInput from '../hooks/useInput';
 import SearchedPlanets from './SearchedPlanets';
 
 function SearchedPlanetsProvider({ children }) {
+  // const lintDependencie = 'nada';
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const inputName = useInput('');
   const inputColumn = useInput('population');
@@ -40,7 +41,7 @@ function SearchedPlanetsProvider({ children }) {
 
   useEffect(() => {
     fetchPlanets();
-  }, []);
+  }, [fetchPlanets]);
 
   const value = {
     fetchedPlanets,
