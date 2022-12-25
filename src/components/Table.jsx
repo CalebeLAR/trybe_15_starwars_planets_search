@@ -5,7 +5,7 @@ import './styles/Table.css';
 function Table() {
   const {
     fetchedPlanets,
-    inputName,
+    input,
     numericFilter,
   } = useContext(SearchedPlanets);
 
@@ -14,23 +14,23 @@ function Table() {
       if (numericFilter.length === 0) {
         return fetchedPlanets;
       }
-      const filter = numericFilter.filter(
-        (planets) => planets.name.includes(inputName.inputValue),
+      const filterByName = numericFilter.filter(
+        (planets) => planets.name.toLowerCase().includes(input.name.toLowerCase()),
       );
 
-      if (filter.length > 0) {
-        return filter;
+      if (filterByName.length > 0) {
+        return filterByName;
       }
 
       return numericFilter;
     }
 
-    const filter = fetchedPlanets.filter(
-      (planets) => planets.name.includes(inputName.inputValue),
+    const filterByName = fetchedPlanets.filter(
+      (planets) => planets.name.toLowerCase().includes(input.name.toLowerCase()),
     );
 
-    if (filter.length > 0) {
-      return filter;
+    if (filterByName.length > 0) {
+      return filterByName;
     }
 
     return fetchedPlanets;

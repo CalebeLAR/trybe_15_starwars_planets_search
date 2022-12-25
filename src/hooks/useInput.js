@@ -1,27 +1,24 @@
 import { useState } from 'react';
 
-export default function useInput(initialValue) {
-  const [inputValue, setInput] = useState(initialValue);
+const initialInputs = {
+  name: '',
+  comparison: 'maior que',
+  column: 'population',
+  value: 0,
+};
 
-  const handlesChange = ({ target }) => {
-    const { value } = target;
+export default function useInput() {
+  const [input, setFilter] = useState(initialInputs);
 
-    // se o "value" for uma string de um numero, ele tranforma em numero
+  const changeInput = ({ target }) => {
+    const { value, id } = target;
     const number = parseInt(value, 10);
-
-    // caso o numero seja maior que 0 ele seta o estado como um valor numérico
     if (number >= 0) {
-      setInput(number);
+      setFilter({ ...input, [id]: number });
     } else {
-      // caso "value" não seja numérico ele apenas seta "value"
-      setInput(value);
+      setFilter({ ...input, [id]: value });
     }
   };
 
-  const i = {
-    inputValue,
-    handlesChange,
-  };
-
-  return i;
+  return [input, changeInput];
 }

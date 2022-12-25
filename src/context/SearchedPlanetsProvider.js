@@ -5,27 +5,22 @@ import useInput from '../hooks/useInput';
 import SearchedPlanets from './SearchedPlanets';
 
 function SearchedPlanetsProvider({ children }) {
-  // const lintDependencie = 'nada';
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
-  const inputName = useInput('');
-  const inputColumn = useInput('population');
-  const inputComparison = useInput('maior que');
-  const inputValue = useInput(0);
-
+  const [input, changeInput] = useInput();
   const [numericFilter, setNumericFilter] = useState('ainda não filtrado');
 
   const filterByNumericInputs = () => {
     // ela pega os valores que estão nos inputs numéricos, e usa eles para montar a condição de filtragem
     // coloca o planeta filtrado no estado local.
-    const { inputValue: column } = inputColumn;
-    const { inputValue: comparision } = inputComparison;
-    const { inputValue: value } = inputValue;
+    const { column, comparison, value } = input;
+    console.log(column, comparison, value);
 
-    switch (comparision) {
+    switch (comparison) {
     case 'maior que':
       setNumericFilter(fetchedPlanets.filter(
         (planet) => parseInt(planet[column], 10) > value,
       ));
+      console.log(numericFilter);
       break;
     case 'menor que':
       setNumericFilter(fetchedPlanets.filter(
@@ -45,10 +40,8 @@ function SearchedPlanetsProvider({ children }) {
 
   const value = {
     fetchedPlanets,
-    inputName,
-    inputColumn,
-    inputComparison,
-    inputValue,
+    input,
+    changeInput,
     filterByNumericInputs,
     numericFilter,
   };

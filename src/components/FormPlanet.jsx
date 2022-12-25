@@ -4,10 +4,8 @@ import './styles/FormPlanet.css';
 
 export default function FormPlanet() {
   const {
-    inputName,
-    inputColumn,
-    inputComparison,
-    inputValue,
+    input,
+    changeInput,
     filterByNumericInputs,
   } = useContext(SearchedPlanets);
 
@@ -18,21 +16,21 @@ export default function FormPlanet() {
           <h1>SEARCH PLANET</h1>
           <input
             data-testid="name-filter"
-            id="nameFilter"
-            value={ inputName.inputValue }
+            id="name"
+            value={ input.name }
             type="text"
-            onChange={ (event) => inputName.handlesChange(event) }
+            onChange={ (event) => changeInput(event) }
           />
         </label>
       </div>
       <section id="sb-col">
-        <label htmlFor="columnFilter" className="div-input">
+        <label htmlFor="column" className="div-input">
           <h6>Coluna</h6>
           <select
-            id="columnFilter"
             data-testid="column-filter"
-            value={ inputColumn.inputValue }
-            onChange={ (event) => inputColumn.handlesChange(event) }
+            id="column"
+            value={ input.column }
+            onChange={ (event) => changeInput(event) }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
@@ -41,28 +39,28 @@ export default function FormPlanet() {
             <option value="surface_water">surface_water</option>
           </select>
         </label>
-        <label htmlFor="comparisonFilter" className="div-input">
+        <label htmlFor="comparison" className="div-input">
           <h6>Operador</h6>
           <select
-            id="comparisonFilter"
+            id="comparison"
             data-testid="comparison-filter"
-            value={ inputComparison.inputValue }
-            onChange={ (event) => inputComparison.handlesChange(event) }
+            value={ input.comparison }
+            onChange={ (event) => changeInput(event) }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
         </label>
-        <label htmlFor="valueFilter" className="div-input">
+        <label htmlFor="value" className="div-input">
           <h6>Valor</h6>
           <input
             data-testid="value-filter"
-            id="valueFilter"
-            value={ inputValue.inputValue }
+            id="value"
+            value={ input.value }
             type="number"
             min={ 0 }
-            onChange={ (event) => inputValue.handlesChange(event) }
+            onChange={ (event) => changeInput(event) }
           />
         </label>
         <button
