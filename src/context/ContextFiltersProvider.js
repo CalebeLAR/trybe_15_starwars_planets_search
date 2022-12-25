@@ -1,26 +1,25 @@
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import useFetchPlanet from '../hooks/useFetchPlanet';
+import ContextFilters from './ContextFilters';
+import ContextPlanets from './ContextPlanets';
 import useInput from '../hooks/useInput';
-import SearchedPlanets from './SearchedPlanets';
 
-function SearchedPlanetsProvider({ children }) {
-  const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
+function ContextFiltersProvider({ children }) {
+  const { fetchedPlanets } = useContext(ContextPlanets);
   const [input, changeInput] = useInput();
   const [numericFilter, setNumericFilter] = useState('ainda não filtrado');
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   const filterByNumericInputs = () => {
     // ela pega os valores que estão nos inputs numéricos, e usa eles para montar a condição de filtragem
     // coloca o planeta filtrado no estado local.
     const { column, comparison, value } = input;
-    console.log(column, comparison, value);
 
     switch (comparison) {
     case 'maior que':
       setNumericFilter(fetchedPlanets.filter(
         (planet) => parseInt(planet[column], 10) > value,
       ));
-      console.log(numericFilter);
       break;
     case 'menor que':
       setNumericFilter(fetchedPlanets.filter(
@@ -34,27 +33,22 @@ function SearchedPlanetsProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    fetchPlanets();
-  }, [fetchPlanets]);
-
   const value = {
-    fetchedPlanets,
     input,
     changeInput,
+    filteredPlanets,
     filterByNumericInputs,
-    numericFilter,
   };
 
   return (
-    <SearchedPlanets.Provider value={ value }>
+    <ContextFilters.Provider value={ value }>
       {children}
-    </SearchedPlanets.Provider>
+    </ContextFilters.Provider>
   );
 }
 
-SearchedPlanetsProvider.propTypes = {
-  children: PropTypes.shape({}).isRequired,
+ContextFiltersProvider.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
-export default SearchedPlanetsProvider;
+export default ContextFiltersProvider;

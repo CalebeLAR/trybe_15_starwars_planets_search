@@ -1,41 +1,9 @@
 import { useContext } from 'react';
-import SearchedPlanets from '../context/SearchedPlanets';
+import ContextFilters from '../context/ContextFilters';
 import './styles/Table.css';
 
 function Table() {
-  const {
-    fetchedPlanets,
-    input,
-    numericFilter,
-  } = useContext(SearchedPlanets);
-
-  const filterPlanets = () => {
-    if (numericFilter !== 'ainda não filtrado') {
-      if (numericFilter.length === 0) {
-        return fetchedPlanets;
-      }
-      const filterByName = numericFilter.filter(
-        (planets) => planets.name.toLowerCase().includes(input.name.toLowerCase()),
-      );
-
-      if (filterByName.length > 0) {
-        return filterByName;
-      }
-
-      return numericFilter;
-    }
-
-    const filterByName = fetchedPlanets.filter(
-      (planets) => planets.name.toLowerCase().includes(input.name.toLowerCase()),
-    );
-
-    if (filterByName.length > 0) {
-      return filterByName;
-    }
-
-    return fetchedPlanets;
-  };
-
+  const { filteredPlanets } = useContext(ContextFilters);
   return (
     <table>
       <thead>
@@ -57,7 +25,7 @@ function Table() {
       </thead>
       <tbody>
         {
-          filterPlanets().map((planet) => (
+          filteredPlanets.map((planet) => (
             <tr key={ planet.name }>
               <td><p>{planet.name}</p></td>
               <td><p>{planet.rotation_period}</p></td>

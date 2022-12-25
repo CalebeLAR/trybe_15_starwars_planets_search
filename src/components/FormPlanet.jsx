@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import SearchedPlanets from '../context/SearchedPlanets';
+import ContextFilters from '../context/ContextFilters';
 import './styles/FormPlanet.css';
 
 export default function FormPlanet() {
@@ -7,7 +7,7 @@ export default function FormPlanet() {
     input,
     changeInput,
     filterByNumericInputs,
-  } = useContext(SearchedPlanets);
+  } = useContext(ContextFilters);
 
   return (
     <section className="searchBar">
