@@ -4,36 +4,24 @@ import './styles/Table.css';
 
 function Table() {
   const {
-    numericFilter,
+    numericFilter: plantes,
     input,
     fetchedPlanets,
   } = useContext(ContextPlanets);
 
   const filterPlanets = () => {
-    if (numericFilter !== 'ainda não filtrado') {
-      if (numericFilter.length === 0) {
-        return fetchedPlanets;
-      }
-      const filter = numericFilter.filter(
-        (planets) => planets.name.includes(input.name),
+    // const filter = plantes.filter(
+    //   (p) => p.name.includes(input.name),
+    // );
+
+    if (plantes.length === 0) {
+      return fetchedPlanets.filter(
+        (p) => p.name.includes(input.name),
       );
-
-      if (filter.length > 0) {
-        return filter;
-      }
-
-      return numericFilter;
     }
-
-    const filter = fetchedPlanets.filter(
-      (planets) => planets.name.includes(input.name),
+    return plantes.filter(
+      (p) => p.name.includes(input.name),
     );
-
-    if (filter.length > 0) {
-      return filter;
-    }
-
-    return fetchedPlanets;
   };
 
   return (

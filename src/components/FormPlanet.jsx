@@ -6,7 +6,7 @@ export default function FormPlanet() {
   const {
     input,
     changeInput,
-    filterByNumericInputs,
+    checksIfTheFilterIsValid,
   } = useContext(ContextPlanets);
 
   return (
@@ -67,7 +67,7 @@ export default function FormPlanet() {
           id="btnFilter"
           data-testid="button-filter"
           type="button"
-          onClick={ () => filterByNumericInputs() }
+          onClick={ () => checksIfTheFilterIsValid() }
         >
           Filtrar
         </button>
