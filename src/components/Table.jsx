@@ -4,22 +4,43 @@ import './styles/Table.css';
 
 function Table() {
   const {
-    numericFilter: plantes,
     input,
+    filters,
     fetchedPlanets,
+    numericFilterSelected,
   } = useContext(ContextPlanets);
 
-  const filterPlanets = () => {
-    // const filter = plantes.filter(
-    //   (p) => p.name.includes(input.name),
-    // );
+  const filterByAllNumericFilters = (fil) => {
+    // pega todos os arrays de filters e junta todos os planets deles em arrTot
+    // pega todos os planets que se repentem em ambos os arrays de filters
+    // retorna o os planets comuns a todos os filtros
+    const arrTot = (fil.length) ? fil.reduce((acc, curr) => {
+      acc = [...acc, ...curr];
+      return acc;
+    }) : [numericFilterSelected];
+    const filteredByAllFilters = arrTot.reduce((acc, curr, index, array) => {
+      const a = array.filter((p) => p.name === curr.name);
+      if (a.length === fil.length) {
+        const ad = acc.map((p) => p.name);
+        if (!ad.includes(curr.name)) {
+          acc = [...acc, curr];
+          return acc;
+        }
+      }
+      return acc;
+    }, []);
+    return filteredByAllFilters;
+  };
 
-    if (plantes.length === 0) {
+  const filterPlanetsByName = () => {
+    const planets = filterByAllNumericFilters(filters);
+
+    if (planets.length === 0) {
       return fetchedPlanets.filter(
         (p) => p.name.includes(input.name),
       );
     }
-    return plantes.filter(
+    return planets.filter(
       (p) => p.name.includes(input.name),
     );
   };
@@ -45,7 +66,7 @@ function Table() {
       </thead>
       <tbody>
         {
-          filterPlanets().map((planet) => (
+          filterPlanetsByName().map((planet) => (
             <tr key={ planet.name }>
               <td><p>{planet.name}</p></td>
               <td><p>{planet.rotation_period}</p></td>
