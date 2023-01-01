@@ -5,8 +5,9 @@ import './styles/FormPlanet.css';
 export default function FormPlanet() {
   const {
     input,
+    numFilters,
     changeInput,
-    checksIfTheFilterIsValid,
+    onButtonClickFilter,
   } = useContext(ContextPlanets);
 
   return (
@@ -67,10 +68,15 @@ export default function FormPlanet() {
           id="btnFilter"
           data-testid="button-filter"
           type="button"
-          onClick={ () => checksIfTheFilterIsValid() }
+          onClick={ () => onButtonClickFilter() }
         >
           Filtrar
         </button>
+      </section>
+      <section>
+        {
+          Object.keys(numFilters).map((f, i)=> <p key={ i }>{f}</p>)
+        }
       </section>
     </section>
   );

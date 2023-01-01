@@ -7,65 +7,73 @@ import ContextPlanets from './ContextPlanets';
 function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const [input, changeInput] = useInput();
-  const [numericFilterSelected, setNumericFilterSelected] = useState([]);
-  const [inputsFilterSelected, setInputsFilterSelected] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const [numFilters, setNumFilters] = useState([]);
 
-  const filterByNumericInputs = () => {
-    // ela pega os valores que estão nos inputs numéricos, e usa eles para montar a condição de filtragem
-    // coloca o planeta filtrado no estado local.
+  const setFilterId = (filteredPlanets) => {
+    // recebe um array de planetas
+    // retorna um objeto com uma chava que são os valores dos inputs numéricos
+    // exempor { "population1maiorque": [array(8)] }
+    const { column, comparison, value } = input;
+
+    const filterID = (column + comparison + value).replace(' ', '');
+    return { [filterID]: filteredPlanets };
+  };
+
+  const saveFiltersByNumericInputs = () => {
     const { column, comparison, value } = input;
 
     switch (comparison) {
     case 'maior que':
-      setNumericFilterSelected(fetchedPlanets.filter(
-        (planet) => parseInt(planet[column], 10) > value,
-      ));
-      setFilters([...filters, fetchedPlanets.filter(
-        (planet) => parseInt(planet[column], 10) > value,
-      )]);
+      setNumFilters({
+        ...numFilters,
+        ...setFilterId(
+          fetchedPlanets.filter((planet) => parseInt(planet[column], 10) > value),
+        ),
+      });
       break;
     case 'menor que':
-      setNumericFilterSelected(fetchedPlanets.filter(
-        (planet) => parseInt(planet[column], 10) < value,
-      ));
-      setFilters([...filters, fetchedPlanets.filter(
-        (planet) => parseInt(planet[column], 10) < value,
-      )]);
+      setNumFilters({
+        ...numFilters,
+        ...setFilterId(
+          fetchedPlanets.filter((planet) => parseInt(planet[column], 10) < value),
+        ),
+      });
       break;
     default:
-      setNumericFilterSelected(fetchedPlanets.filter(
-        (planet) => parseInt(planet[column], 10) === value,
-      ));
-      setFilters([...filters, fetchedPlanets.filter(
-        (planet) => parseInt(planet[column], 10) === value,
-      )]);
+      setNumFilters({
+        ...numFilters,
+        ...setFilterId(
+          fetchedPlanets.filter((planet) => parseInt(planet[column], 10) === value),
+        ),
+      });
     }
   };
 
-  const checksIfTheFilterIsValid = () => {
-    // verifica se os inputs de filtro ja foram selecionados ou não.
-    // caso esse filtro ainda não seja adicionado, então permite filtrar e
-    // armazenar o planetas filtrados em numericFilterSelected
-    const { column, comparison, value } = input;
-    const newInputFilter = column + comparison + value;
-    if (!inputsFilterSelected.includes(newInputFilter)) {
-      setInputsFilterSelected([...inputsFilterSelected, newInputFilter]);
-      filterByNumericInputs();
+  const onButtonClickFilter = () => {
+    // verifica se o filtro numerico ja foi usado,
+    // pega todas as chaves que o array numFilters possui pra verificar
+    // verifica se a configuração de fitro ja está em numFilter
+    // caso esteja: ele não deixa adicionar o filtro,
+    // caso não esteja então ele adiciona o filtro.
+
+    const { comparison, column, value } = input;
+    const newFilter = (column + comparison + value).replace(' ', '');
+    const filterIds = Object.keys(numFilters);
+    if (!filterIds.includes(newFilter)) {
+      saveFiltersByNumericInputs();
     }
   };
 
   useEffect(() => {
     fetchPlanets();
-  }, [fetchPlanets]);
+  }, []);
 
   const value = {
     fetchedPlanets,
     input,
     changeInput,
-    numericFilterSelected,
-    filters,
-    checksIfTheFilterIsValid,
+    numFilters,
+    onButtonClickFilter,
   };
 
   return (
@@ -76,7 +84,7 @@ function ContextPlanetsProvider({ children }) {
 }
 
 ContextPlanetsProvider.propTypes = {
-  children: PropTypes.shape({}).isRequired,
+  children: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default ContextPlanetsProvider;

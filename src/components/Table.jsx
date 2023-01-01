@@ -5,22 +5,22 @@ import './styles/Table.css';
 function Table() {
   const {
     input,
-    filters,
+    numFilters,
     fetchedPlanets,
-    numericFilterSelected,
   } = useContext(ContextPlanets);
 
   const filterByAllNumericFilters = (fil) => {
     // pega todos os arrays de filters e junta todos os planets deles em arrTot
     // pega todos os planets que se repentem em ambos os arrays de filters
     // retorna o os planets comuns a todos os filtros
-    const arrTot = (fil.length) ? fil.reduce((acc, curr) => {
+    const arrPlanets = Object.values(fil);
+    const arrTot = (arrPlanets.length) ? [...arrPlanets].reduce((acc, curr) => {
       acc = [...acc, ...curr];
       return acc;
-    }) : [numericFilterSelected];
+    }) : [fetchedPlanets];
     const filteredByAllFilters = arrTot.reduce((acc, curr, index, array) => {
       const a = array.filter((p) => p.name === curr.name);
-      if (a.length === fil.length) {
+      if (a.length === arrPlanets.length) {
         const ad = acc.map((p) => p.name);
         if (!ad.includes(curr.name)) {
           acc = [...acc, curr];
@@ -31,9 +31,8 @@ function Table() {
     }, []);
     return filteredByAllFilters;
   };
-
   const filterPlanetsByName = () => {
-    const planets = filterByAllNumericFilters(filters);
+    const planets = filterByAllNumericFilters(numFilters);
 
     if (planets.length === 0) {
       return fetchedPlanets.filter(
