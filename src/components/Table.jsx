@@ -43,6 +43,9 @@ function Table() {
       (p) => p.name.includes(input.name),
     );
   };
+  if (!fetchedPlanets.length) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <table>
