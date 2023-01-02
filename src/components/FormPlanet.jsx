@@ -75,7 +75,7 @@ export default function FormPlanet() {
       </section>
       <section>
         {
-          Object.keys(numFilters).map((f, i)=> <p key={ i }>{f}</p>)
+          Object.keys(numFilters).map((f, i) => <p key={ i }>{f}</p>)
         }
       </section>
     </section>
