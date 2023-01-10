@@ -70,7 +70,7 @@ function Table() {
         {
           filterPlanetsByName().map((planet) => (
             <tr key={ planet.name }>
-              <td><p>{planet.name}</p></td>
+              <td><p data-testid="name-planet">{planet.name}</p></td>
               <td><p>{planet.rotation_period}</p></td>
               <td><p>{planet.orbital_period}</p></td>
               <td><p>{planet.diameter}</p></td>

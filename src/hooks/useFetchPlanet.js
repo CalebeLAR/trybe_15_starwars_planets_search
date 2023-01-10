@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { act } from '@testing-library/react';
 
 export default function useFetchPlanet() {
   const [fetchedPlanets, setfetchedPlanets] = useState([]);
@@ -24,9 +25,8 @@ export default function useFetchPlanet() {
     const URL = 'https://swapi.py4e.com/api/planets';
     fetch(URL)
       .then((request) => request.json())
-      .then((data) => data.results)
-      .then((results) => removeResidentsAndSetData(results))
-      .catch((error) => console.error(error));
+      .then(({ results }) => act(() => removeResidentsAndSetData(results)))
+      .catch(() => console.log('Erro de requisição'));
   };
 
   return [
