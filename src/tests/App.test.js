@@ -134,6 +134,7 @@ describe('filtros numéricos', ()=> {
     expect(valueInput).toBeInTheDocument()
     expect(valueInput).toBeVisible()
 
+    userEvent.clear(screen.getByTestId('value-filter'))
     userEvent.type(valueInput, "1000");
     expect(screen.getByTestId('value-filter').value).toBe("1000");
     userEvent.clear(screen.getByTestId('value-filter'))

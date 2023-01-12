@@ -14,13 +14,14 @@ function Table() {
     // pega todos os planets que se repentem em ambos os arrays de filters
     // retorna o os planets comuns a todos os filtros
     const arrPlanets = Object.values(fil);
+    const arrNoEnptys = arrPlanets.filter((arr) => arr.length);
     const arrTot = (arrPlanets.length) ? [...arrPlanets].reduce((acc, curr) => {
       acc = [...acc, ...curr];
       return acc;
     }) : [fetchedPlanets];
     const filteredByAllFilters = arrTot.reduce((acc, curr, index, array) => {
       const a = array.filter((p) => p.name === curr.name);
-      if (a.length === arrPlanets.length) {
+      if (a.length === arrNoEnptys.length) {
         const ad = acc.map((p) => p.name);
         if (!ad.includes(curr.name)) {
           acc = [...acc, curr];
