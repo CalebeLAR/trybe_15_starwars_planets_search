@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { act } from '@testing-library/react';
 import App from '../routes/App';
 import results from './request';
+import checkTheSelectOptions from './helper';
 
 describe('ao iniciar a plicação.', ()=> {
   afterEach(() => jest.clearAllMocks());
@@ -83,18 +84,18 @@ describe('search barr', ()=> {
       expect(search_o).toContain(features.innerHTML);
     })
 
-    userEvent.type(searchBarr, 'o'); // searhaBarr com 'o'
+    userEvent.type(searchBarr, 'o'); // searhaBarr com 'oo'
     planets = getPlanetsFiltereds();
     expect(planets).toHaveLength(2);
     planets = screen.getAllByTestId("name-planet");
     [...planets].forEach((features)=>{
-      expect(search_o).toContain(features.innerHTML);
+      expect(search_oo).toContain(features.innerHTML);
     })
   });
   test('caso não seja encontrado nem um planeta, a tabela tem que ficar vazia', ()=>{
     const searchBarr = screen.getByTestId('name-filter');
 
-    userEvent.type(searchBarr, 'eu não sou um planeta. juro!'); // searhaBarr com 'o'
+    userEvent.type(searchBarr, 'eu não sou um planeta. juro!');
     const planets = screen.queryAllByAltText("name-planet");
     expect(planets).toHaveLength(0);
   
@@ -102,7 +103,59 @@ describe('search barr', ()=> {
 })
 
 describe('filtros numéricos', ()=> {
-  test.todo('deve haver tres inputs para filtrar os planetas. cada um com o texto: coluna, comparação e valor.');
-  test.todo('ao clicar no botão de filtro, a tabela deve exibir so os planetas que satisfazem o filtro');
+
+  beforeEach(async ()=>{
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue(results),
+    })
+      render(<App/>);
+      await waitForElementToBeRemoved(() => screen.getByText('Loading...'))
+  
+    });
+
+  test('deve haver tres inputs para filtrar os planetas: coluna, comparação e valor.', () => {
+    const comparisonOptions = [ 'maior que', 'menor que', 'igual a' ]
+    const columnOptions = ['population','orbital_period','diameter','rotation_period','surface_water'];
+  
+    expect(screen.getByTestId('comparison-filter')).toBeInTheDocument()
+    expect(screen.getByTestId('comparison-filter')).toBeVisible()
+    checkTheSelectOptions('comparison-filter', comparisonOptions)
+    
+    expect(screen.getByTestId('column-filter')).toBeInTheDocument()
+    expect(screen.getByTestId('column-filter')).toBeVisible()
+    checkTheSelectOptions('column-filter', columnOptions)
+
+    expect(screen.getByTestId('button-filter')).toBeInTheDocument()
+    expect(screen.getByTestId('button-filter')).toBeVisible()
+    expect(screen.getByTestId('button-filter')).toBeEnabled()
+
+    
+    const valueInput = screen.getByTestId('value-filter');
+    expect(valueInput).toBeInTheDocument()
+    expect(valueInput).toBeVisible()
+
+    userEvent.type(valueInput, "1000");
+    expect(screen.getByTestId('value-filter').value).toBe("1000");
+    userEvent.clear(screen.getByTestId('value-filter'))
+    expect(screen.getByTestId('value-filter').value).toBe("0");
+    userEvent.type(valueInput, "-1");
+    expect(screen.getByTestId('value-filter').value).toBe("0");
+
+
+  });
+  test('ao clicar no botão de filtro, a tabela deve exibir so os planetas que satisfazem o filtro', () => {
+    const btnFilter = screen.getByTestId('button-filter');
+    const columnInput = screen.getByTestId('column-filter');
+    const comparisonInput = screen.getByTestId('comparison-filter');
+    const valuInput = screen.getByTestId('value-filter');
+
+    userEvent.selectOptions(columnInput,'population');
+    userEvent.selectOptions(comparisonInput,'maior que');
+    userEvent.type(valuInput,'10000000');
+    userEvent.click(btnFilter);
+
+    const planetsFiltereds = screen.getAllByTestId('name-planet');
+
+  });
   test.todo('o filtro por nome deve continuar nos planetas filtrados');
 });

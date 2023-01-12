@@ -4,7 +4,7 @@ const initialInputs = {
   name: '',
   comparison: 'maior que',
   column: 'population',
-  value: 0,
+  value: '',
 };
 
 export default function useInput() {
@@ -13,8 +13,12 @@ export default function useInput() {
   const changeInput = ({ target }) => {
     const { value, id } = target;
     const number = parseInt(value, 10);
-    if (number >= 0) {
-      setFilter({ ...input, [id]: number });
+    if (id === 'value') {
+      if (number >= 0) {
+        setFilter({ ...input, [id]: number });
+      } else {
+        setFilter({ ...input, [id]: 0 });
+      }
     } else {
       setFilter({ ...input, [id]: value });
     }
