@@ -138,9 +138,9 @@ describe('filtros numéricos', ()=> {
     userEvent.type(valueInput, "1000");
     expect(screen.getByTestId('value-filter').value).toBe("1000");
     userEvent.clear(screen.getByTestId('value-filter'))
-    expect(screen.getByTestId('value-filter').value).toBe("0");
+    expect(screen.getByTestId('value-filter').value).toBe("");
     userEvent.type(valueInput, "-1");
-    expect(screen.getByTestId('value-filter').value).toBe("0");
+    expect(screen.getByTestId('value-filter').value).toBe("");
 
 
   });

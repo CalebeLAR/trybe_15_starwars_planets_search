@@ -24,5 +24,5 @@ export default function useInput() {
     }
   };
 
-  return [input, changeInput];
+  return [input, changeInput, setInput];
 }

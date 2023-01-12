@@ -6,17 +6,25 @@ import ContextPlanets from './ContextPlanets';
 
 function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
-  const [input, changeInput] = useInput();
+  const [input, changeInput, setInput] = useInput();
   const [numFilters, setNumFilters] = useState([]);
+  const [valueOptions, setValueOptions] = useState(
+    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
+  );
 
   const setFilterId = (filteredPlanets) => {
     // recebe um array de planetas
-    // retorna um objeto com uma chava que são os valores dos inputs numéricos
-    // exempor { "population1maiorque": [array(8)] }
+    // retira a a opção selecionada da lista de valueOptions
+    // monta uma string e armazena em newfilterID
+    // seta um novo valor de input para atualizar o valor de column
+    // retorna um objeto no formato: {ID: filteredPlanets}
     const { column, comparison, value } = input;
 
-    const filterID = (column + comparison + value).replace(' ', '');
-    return { [filterID]: filteredPlanets };
+    const newFilterID = (column + comparison + value).replace(' ', '');
+    const newColumnOptions = valueOptions.filter((valueOpt) => valueOpt !== column);
+    setValueOptions(newColumnOptions);
+    setInput({ ...input, column: newColumnOptions[0] });
+    return { [newFilterID]: filteredPlanets };
   };
 
   const saveFiltersByNumericInputs = () => {
@@ -57,9 +65,9 @@ function ContextPlanetsProvider({ children }) {
     // caso não esteja então ele adiciona o filtro.
 
     const { comparison, column, value } = input;
-    const newFilter = (column + comparison + value).replace(' ', '');
+    const newFilterID = (column + comparison + value).replace(' ', '');
     const filterIds = Object.keys(numFilters);
-    if (!filterIds.includes(newFilter)) {
+    if (!filterIds.includes(newFilterID)) {
       saveFiltersByNumericInputs();
     }
   };
@@ -69,10 +77,11 @@ function ContextPlanetsProvider({ children }) {
   }, [fetchPlanets]);
 
   const value = {
-    fetchedPlanets,
     input,
-    changeInput,
     numFilters,
+    changeInput,
+    valueOptions,
+    fetchedPlanets,
     onButtonClickFilter,
   };
 

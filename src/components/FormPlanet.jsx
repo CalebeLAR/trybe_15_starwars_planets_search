@@ -7,8 +7,11 @@ export default function FormPlanet() {
     input,
     numFilters,
     changeInput,
+    valueOptions,
     onButtonClickFilter,
   } = useContext(ContextPlanets);
+
+  console.log(valueOptions);
 
   return (
     <section className="searchBar">
@@ -25,21 +28,32 @@ export default function FormPlanet() {
         </label>
       </div>
       <section id="sb-col">
-        <label htmlFor="column" className="div-input">
-          <h6>Coluna</h6>
-          <select
-            data-testid="column-filter"
-            id="column"
-            value={ input.column }
-            onChange={ (event) => changeInput(event) }
-          >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
-          </select>
-        </label>
+        {
+          (valueOptions.length) ? (
+            <label htmlFor="column" className="div-input">
+              <h6>Coluna</h6>
+              <select
+                data-testid="column-filter"
+                id="column"
+                value={ input.column }
+                onChange={ (event) => changeInput(event) }
+              >
+                {
+                  valueOptions.map((valueOption, i) => (
+                    <option
+                      key={ i }
+                      value={ valueOption }
+                    >
+                      {valueOption}
+                    </option>
+                  ))
+                }
+              </select>
+            </label>
+          ) : (
+            <h1>sem colunas</h1>
+          )
+        }
         <label htmlFor="comparison" className="div-input">
           <h6>Operador</h6>
           <select
