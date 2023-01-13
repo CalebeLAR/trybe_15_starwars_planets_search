@@ -4,13 +4,15 @@ import useInput from '../hooks/useInput';
 import useFetchPlanet from '../hooks/useFetchPlanet';
 import ContextPlanets from './ContextPlanets';
 
+const THREE = 3;
 function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const [input, changeInput, setInput] = useInput();
   const [numFilters, setNumFilters] = useState([]);
-  const [valueOptions, setValueOptions] = useState(
-    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
-  );
+  const allColumns = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ];
+  const [valueOptions, setValueOptions] = useState(allColumns);
 
   const setFilterId = (filteredPlanets) => {
     // recebe um array de planetas
@@ -25,6 +27,32 @@ function ContextPlanetsProvider({ children }) {
     setValueOptions(newColumnOptions);
     setInput({ ...input, column: newColumnOptions[0] });
     return { [newFilterID]: filteredPlanets };
+  };
+
+  const restoreColumns = (f) => {
+    const filterInitials = f.slice(0, THREE);
+    allColumns.forEach((column, i) => {
+      if (column.includes(filterInitials)) {
+        setValueOptions([...valueOptions, allColumns[i]]);
+      }
+    });
+  };
+
+  const removeFilter = (f) => {
+    if (f === 'all') {
+      setNumFilters([]);
+      setValueOptions(allColumns);
+    } else {
+      const arrEntries = Object.entries(numFilters);
+      const newArr = arrEntries.reduce((acc, curr) => {
+        if (curr[0] !== f) {
+          return { ...acc, [curr[0]]: curr[1] };
+        }
+        return acc;
+      }, {});
+      setNumFilters(newArr);
+      restoreColumns(f);
+    }
   };
 
   const saveFiltersByNumericInputs = () => {
@@ -59,8 +87,8 @@ function ContextPlanetsProvider({ children }) {
 
   const onButtonClickFilter = () => {
     // verifica se o filtro numerico ja foi usado,
-    // pega todas as chaves que o array numFilters possui pra verificar
-    // verifica se a configuração de fitro ja está em numFilter
+    // pega todas as chaves que o array numFilters possui pra
+    // verificar se a configuração de fitro ja está em numFilter
     // caso esteja: ele não deixa adicionar o filtro,
     // caso não esteja então ele adiciona o filtro.
 
@@ -81,6 +109,7 @@ function ContextPlanetsProvider({ children }) {
     numFilters,
     changeInput,
     valueOptions,
+    removeFilter,
     fetchedPlanets,
     onButtonClickFilter,
   };

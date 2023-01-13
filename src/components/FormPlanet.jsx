@@ -8,10 +8,9 @@ export default function FormPlanet() {
     numFilters,
     changeInput,
     valueOptions,
+    removeFilter,
     onButtonClickFilter,
   } = useContext(ContextPlanets);
-
-  console.log(valueOptions);
 
   return (
     <section className="searchBar">
@@ -86,10 +85,35 @@ export default function FormPlanet() {
         >
           Filtrar
         </button>
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          id={ Object.keys(numFilters).length ? 'btnRmAllOn' : 'btnRmAllOff' }
+          disabled={ !Object.keys(numFilters).length }
+          onClick={ () => removeFilter('all') }
+        >
+          Remover todas filtragens
+        </button>
       </section>
       <section>
         {
-          Object.keys(numFilters).map((f, i) => <p key={ i }>{f}</p>)
+          Object.keys(numFilters).map((f, i) => (
+            <section
+              key={ i }
+              id="sectionFilter"
+              data-testid="filter"
+            >
+              <div>
+                <p>{f}</p>
+              </div>
+              <button
+                type="button"
+                onClick={ () => removeFilter(f) }
+              >
+                X
+              </button>
+            </section>
+          ))
         }
       </section>
     </section>

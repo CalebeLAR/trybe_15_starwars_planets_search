@@ -3,9 +3,8 @@ import userEvent from '@testing-library/user-event';
 
 const checkTheSelectOptions = (select_TestId, listOptions) => {
   // recebe doi parametros, um dataTestId de um elemento Select e uma lista 
-  // com o nome de cada opção so select.
-  // percorre todos as opções so select verificando se ela é selecionável 
-  // compara se todas as opções do select estão na lista do opções
+  // com o nome de cada opção do select. 
+  // compara se todas as opções do select estão na lista de opções
 
   const select = screen.getByTestId(select_TestId)
   const options = select.getElementsByTagName('option');

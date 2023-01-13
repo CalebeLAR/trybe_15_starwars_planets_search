@@ -49,6 +49,7 @@
   border-radius: 8px;
   width: 150px;
   height: 150px;
+  margin-left: 10px;
 }
 
 #btnFilter:hover {
@@ -56,7 +57,37 @@
   margin-left: 10px;
 }
 
-#btnFilter {
-  background-color: #384233;
+
+#btnRmAllOn:hover {
+  background-color: #567646;
+  margin-left: 10px;
+}
+
+#btnRmAllOn {
+  background-color: #3c4239;
+  border: solid black 2px;
+  border-radius: 8px;
+  width: 150px;
+  height: 150px;
+  margin-left: 10px;
+}
+
+#btnRmAllOff {
+  background-color: #3c4239;
+  border: solid black 2px;
+  border-radius: 8px;
+  width: 150px;
+  height: 150px;
+  margin-left: 10px;
+}
+
+#sectionFilter {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center
+}
+
+#sectionFilter > button {
   margin-left: 10px;
 } */

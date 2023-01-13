@@ -7,7 +7,6 @@ export default function useFetchPlanet() {
   const removeResidentsAndSetData = (results) => {
     results.forEach((element, index, array) => {
       if (element.residents) {
-        // monta um novo objeto
         const newObj = {};
         const keys = Object.keys(element);
         keys.forEach((key) => {
