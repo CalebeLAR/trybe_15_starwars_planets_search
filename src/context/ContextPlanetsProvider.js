@@ -102,7 +102,7 @@ function ContextPlanetsProvider({ children }) {
 
   useEffect(() => {
     fetchPlanets();
-  }, [fetchPlanets]);
+  }, []);
 
   const value = {
     input,

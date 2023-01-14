@@ -71,7 +71,7 @@ describe('search barr', ()=> {
   test('ao digitar na search barr, os planetas precisam ser filtrados instantaneamente na tabela a cada letra digitada', () => {
     const search_o = ['Coruscant', 'Dagobah', 'Endor', 'Hoth', 'Kamino', 'Naboo', 'Tatooine'];
     const search_oo = ['Naboo', 'Tatooine'];
-    const getPlanetsFiltereds = () => screen.getAllByTestId("name-planet");
+    const getPlanetsFiltereds = () => screen.getAllByTestId("planet-name");
     let planets = [];
 
 
@@ -87,7 +87,6 @@ describe('search barr', ()=> {
     userEvent.type(searchBarr, 'o'); // searhaBarr com 'oo'
     planets = getPlanetsFiltereds();
     expect(planets).toHaveLength(2);
-    planets = screen.getAllByTestId("name-planet");
     [...planets].forEach((features)=>{
       expect(search_oo).toContain(features.innerHTML);
     })
@@ -96,7 +95,7 @@ describe('search barr', ()=> {
     const searchBarr = screen.getByTestId('name-filter');
 
     userEvent.type(searchBarr, 'eu não sou um planeta. juro!');
-    const planets = screen.queryAllByAltText("name-planet");
+    const planets = screen.queryAllByTestId("planet-name");
     expect(planets).toHaveLength(0);
   
   });
@@ -155,7 +154,7 @@ describe('filtros numéricos', ()=> {
     userEvent.type(valuInput,'10000000');
     userEvent.click(btnFilter);
 
-    const planetsFiltereds = screen.getAllByTestId('name-planet');
+    const planetsFiltereds = screen.getAllByTestId('planet-name');
 
   });
   test.todo('o filtro por nome deve continuar nos planetas filtrados');

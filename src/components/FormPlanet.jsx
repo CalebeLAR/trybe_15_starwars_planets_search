@@ -86,14 +86,61 @@ export default function FormPlanet() {
           Filtrar
         </button>
         <button
-          type="button"
-          data-testid="button-remove-filters"
           id={ Object.keys(numFilters).length ? 'btnRmAllOn' : 'btnRmAllOff' }
-          disabled={ !Object.keys(numFilters).length }
+          type="button"
           onClick={ () => removeFilter('all') }
+          disabled={ !Object.keys(numFilters).length }
+          data-testid="button-remove-filters"
         >
           Remover todas filtragens
         </button>
+        <div className="div-sort">
+          <label htmlFor="columnSortInputAsc">
+            <h6>ascendente</h6>
+            <input
+              id="columnSortInputAsc"
+              type="radio"
+              name="columnSort"
+              value="ASC"
+              data-testid="column-sort-input-asc"
+            />
+          </label>
+          <label htmlFor="columnSortInputDesc">
+            <h6>descendente</h6>
+            <input
+              id="columnSortInputDesc"
+              name="columnSort"
+              type="radio"
+              value="ASC"
+              data-testid="column-sort-input-desc"
+            />
+          </label>
+          <label htmlFor="sortFilter">
+            <h6>Coluna</h6>
+            <select
+              id="column-sort"
+              data-testid="column-sort"
+            >
+              {
+                valueOptions.map((valueOption, i) => (
+                  <option
+                    key={ i }
+                    value={ valueOption }
+                  >
+                    {valueOption}
+                  </option>
+                ))
+              }
+            </select>
+          </label>
+          <button
+            type="button"
+            id="btnSort"
+            data-testid="column-sort-button"
+          >
+            sort
+          </button>
+        </div>
       </section>
       <section>
         {
@@ -104,6 +151,7 @@ export default function FormPlanet() {
               data-testid="filter"
             >
               <div>
+                j
                 <p>{f}</p>
               </div>
               <button
