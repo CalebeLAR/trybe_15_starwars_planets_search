@@ -5,6 +5,8 @@ import './styles/FormPlanet.css';
 export default function FormPlanet() {
   const {
     input,
+    changeSort,
+    allColumns,
     numFilters,
     changeInput,
     valueOptions,
@@ -102,7 +104,9 @@ export default function FormPlanet() {
               type="radio"
               name="columnSort"
               value="ASC"
+              onClick={ (e) => changeSort(e) }
               data-testid="column-sort-input-asc"
+              defaultChecked
             />
           </label>
           <label htmlFor="columnSortInputDesc">
@@ -111,18 +115,20 @@ export default function FormPlanet() {
               id="columnSortInputDesc"
               name="columnSort"
               type="radio"
-              value="ASC"
+              value="DESC"
+              onClick={ (e) => changeSort(e) }
               data-testid="column-sort-input-desc"
             />
           </label>
           <label htmlFor="sortFilter">
             <h6>Coluna</h6>
             <select
-              id="column-sort"
+              id="columnSort"
               data-testid="column-sort"
+              onClick={ (e) => changeSort(e) }
             >
               {
-                valueOptions.map((valueOption, i) => (
+                allColumns.map((valueOption, i) => (
                   <option
                     key={ i }
                     value={ valueOption }
@@ -134,8 +140,8 @@ export default function FormPlanet() {
             </select>
           </label>
           <button
-            type="button"
             id="btnSort"
+            type="button"
             data-testid="column-sort-button"
           >
             sort
@@ -151,7 +157,6 @@ export default function FormPlanet() {
               data-testid="filter"
             >
               <div>
-                j
                 <p>{f}</p>
               </div>
               <button

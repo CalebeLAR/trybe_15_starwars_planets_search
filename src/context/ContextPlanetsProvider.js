@@ -7,7 +7,7 @@ import ContextPlanets from './ContextPlanets';
 const THREE = 3;
 function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
-  const [input, changeInput, setInput] = useInput();
+  const [input, changeInput, setInput, changeSort] = useInput();
   const [numFilters, setNumFilters] = useState([]);
   const allColumns = [
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
@@ -106,7 +106,9 @@ function ContextPlanetsProvider({ children }) {
 
   const value = {
     input,
+    changeSort,
     numFilters,
+    allColumns,
     changeInput,
     valueOptions,
     removeFilter,

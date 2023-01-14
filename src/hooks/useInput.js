@@ -5,6 +5,7 @@ const initialInputs = {
   comparison: 'maior que',
   column: 'population',
   value: 0,
+  order: { columnSort: 'population', sort: 'ASC' },
 };
 
 export default function useInput() {
@@ -24,5 +25,23 @@ export default function useInput() {
     }
   };
 
-  return [input, changeInput, setInput];
+  const changeSort = ({ target }) => {
+    const { id, value } = target;
+    const { order: { columnSort, sort } } = input;
+    console.log(columnSort);
+    if (id === 'columnSortInputDesc') {
+      setInput({ ...input, order: { columnSort, sort: value } });
+      console.log({ ...input, order: { columnSort, sort: value } });
+    }
+    if (id === 'columnSortInputAsc') {
+      setInput({ ...input, order: { columnSort, sort: value } });
+      console.log({ ...input, order: { columnSort, sort: value } });
+    }
+    if (id === 'columnSort') {
+      setInput({ ...input, order: { columnSort: value, sort } });
+      console.log({ ...input, order: { columnSort: value, sort } });
+    }
+  };
+
+  return [input, changeInput, setInput, changeSort];
 }
