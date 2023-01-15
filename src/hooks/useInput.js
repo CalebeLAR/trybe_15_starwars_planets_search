@@ -31,15 +31,12 @@ export default function useInput() {
     console.log(columnSort);
     if (id === 'columnSortInputDesc') {
       setInput({ ...input, order: { columnSort, sort: value } });
-      console.log({ ...input, order: { columnSort, sort: value } });
     }
     if (id === 'columnSortInputAsc') {
       setInput({ ...input, order: { columnSort, sort: value } });
-      console.log({ ...input, order: { columnSort, sort: value } });
     }
     if (id === 'columnSort') {
       setInput({ ...input, order: { columnSort: value, sort } });
-      console.log({ ...input, order: { columnSort: value, sort } });
     }
   };
 

@@ -9,6 +9,7 @@ function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const [input, changeInput, setInput, changeSort] = useInput();
   const [numFilters, setNumFilters] = useState([]);
+  const [sortFilter, setSortFilter] = useState(['population', 'null']);
   const allColumns = [
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ];
@@ -100,6 +101,11 @@ function ContextPlanetsProvider({ children }) {
     }
   };
 
+  const onButtonSortFilter = () => {
+    const { order: { columnSort, sort } } = input;
+    setSortFilter([columnSort, sort]);
+  };
+
   useEffect(() => {
     fetchPlanets();
   }, []);
@@ -109,11 +115,13 @@ function ContextPlanetsProvider({ children }) {
     changeSort,
     numFilters,
     allColumns,
+    sortFilter,
     changeInput,
     valueOptions,
     removeFilter,
     fetchedPlanets,
     onButtonClickFilter,
+    onButtonSortFilter,
   };
 
   return (

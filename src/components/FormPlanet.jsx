@@ -11,6 +11,7 @@ export default function FormPlanet() {
     changeInput,
     valueOptions,
     removeFilter,
+    onButtonSortFilter,
     onButtonClickFilter,
   } = useContext(ContextPlanets);
 
@@ -106,7 +107,6 @@ export default function FormPlanet() {
               value="ASC"
               onClick={ (e) => changeSort(e) }
               data-testid="column-sort-input-asc"
-              defaultChecked
             />
           </label>
           <label htmlFor="columnSortInputDesc">
@@ -143,6 +143,7 @@ export default function FormPlanet() {
             id="btnSort"
             type="button"
             data-testid="column-sort-button"
+            onClick={ () => onButtonSortFilter() }
           >
             sort
           </button>

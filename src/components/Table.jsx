@@ -2,13 +2,15 @@ import { useContext } from 'react';
 import ContextPlanets from '../context/ContextPlanets';
 import './styles/Table.css';
 
+const MAGIC = 100000000000000;
+const SORT = -1;
 function Table() {
   const {
     input,
     numFilters,
+    sortFilter,
     fetchedPlanets,
   } = useContext(ContextPlanets);
-
   const filterByAllNumericFilters = (fil) => {
     // pega todos os arrays de filters e junta todos os planets deles em arrTot
     // pega todos os planets que se repentem em ambos os arrays de filters
@@ -44,6 +46,46 @@ function Table() {
       (p) => p.name.includes(input.name),
     );
   };
+  const mountColumn = (a, b, columnSort, sortMethod) => {
+    if (sortMethod === 'ASC') {
+      const columnA = parseInt(a[columnSort], 10)
+        ? parseInt(a[columnSort], 10) : MAGIC;
+      const columnB = parseInt(b[columnSort], 10)
+        ? parseInt(b[columnSort], 10) : MAGIC;
+      return [columnA, columnB];
+    }
+    const columnA = parseInt(a[columnSort], 10)
+      ? parseInt(a[columnSort], 10) : SORT;
+    const columnB = parseInt(b[columnSort], 10)
+      ? parseInt(b[columnSort], 10) : SORT;
+    return [columnA, columnB];
+  };
+
+  const hofSort = (a, b) => {
+    const [columnSort, sort] = sortFilter;
+    if (sort === 'null') {
+      console.log('null');
+      return fetchedPlanets;
+    }
+    const [columnA, columnB] = mountColumn(a, b, columnSort, sort);
+    if (sort === 'ASC') {
+      if (columnA < columnB) {
+        return SORT;
+      }
+      if (columnA > columnB) {
+        return 1;
+      }
+    } else {
+      if (columnA < columnB) {
+        return 1;
+      }
+      if (columnA > columnB) {
+        return SORT;
+      }
+    }
+  };
+  const sortAndFilterByName = filterPlanetsByName().sort(hofSort);
+
   if (!fetchedPlanets.length) {
     return <h1>Loading...</h1>;
   }
@@ -69,7 +111,7 @@ function Table() {
       </thead>
       <tbody>
         {
-          filterPlanetsByName().map((planet) => (
+          sortAndFilterByName.map((planet) => (
             <tr key={ planet.name }>
               <td><p data-testid="planet-name">{planet.name}</p></td>
               <td><p>{planet.rotation_period}</p></td>
