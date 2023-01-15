@@ -106,6 +106,7 @@ export default function FormPlanet() {
               name="columnSort"
               value="ASC"
               onClick={ (e) => changeSort(e) }
+              defaultChecked
               data-testid="column-sort-input-asc"
             />
           </label>

@@ -9,7 +9,7 @@ function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
   const [input, changeInput, setInput, changeSort] = useInput();
   const [numFilters, setNumFilters] = useState([]);
-  const [sortFilter, setSortFilter] = useState(['population', 'null']);
+  const [sortFilter, setSortFilter] = useState(['population', 'ASC']);
   const allColumns = [
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ];

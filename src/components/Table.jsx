@@ -63,10 +63,6 @@ function Table() {
 
   const hofSort = (a, b) => {
     const [columnSort, sort] = sortFilter;
-    if (sort === 'null') {
-      console.log('null');
-      return fetchedPlanets;
-    }
     const [columnA, columnB] = mountColumn(a, b, columnSort, sort);
     if (sort === 'ASC') {
       if (columnA < columnB) {
@@ -84,6 +80,7 @@ function Table() {
       }
     }
   };
+
   const sortAndFilterByName = filterPlanetsByName().sort(hofSort);
 
   if (!fetchedPlanets.length) {

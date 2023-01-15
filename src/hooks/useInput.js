@@ -28,7 +28,6 @@ export default function useInput() {
   const changeSort = ({ target }) => {
     const { id, value } = target;
     const { order: { columnSort, sort } } = input;
-    console.log(columnSort);
     if (id === 'columnSortInputDesc') {
       setInput({ ...input, order: { columnSort, sort: value } });
     }
