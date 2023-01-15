@@ -5,8 +5,6 @@ import './styles/FormPlanet.css';
 export default function FormPlanet() {
   const {
     input,
-    changeSort,
-    allColumns,
     numFilters,
     changeInput,
     valueOptions,
@@ -14,6 +12,10 @@ export default function FormPlanet() {
     onButtonSortFilter,
     onButtonClickFilter,
   } = useContext(ContextPlanets);
+
+  const allColumns = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ];
 
   return (
     <section className="searchBar">
@@ -105,7 +107,6 @@ export default function FormPlanet() {
               type="radio"
               name="columnSort"
               value="ASC"
-              onClick={ (e) => changeSort(e) }
               defaultChecked
               data-testid="column-sort-input-asc"
             />
@@ -117,7 +118,6 @@ export default function FormPlanet() {
               name="columnSort"
               type="radio"
               value="DESC"
-              onClick={ (e) => changeSort(e) }
               data-testid="column-sort-input-desc"
             />
           </label>
@@ -126,7 +126,7 @@ export default function FormPlanet() {
             <select
               id="columnSort"
               data-testid="column-sort"
-              onClick={ (e) => changeSort(e) }
+              defaultValue="population"
             >
               {
                 allColumns.map((valueOption, i) => (
@@ -144,7 +144,7 @@ export default function FormPlanet() {
             id="btnSort"
             type="button"
             data-testid="column-sort-button"
-            onClick={ () => onButtonSortFilter() }
+            onClick={ (e) => onButtonSortFilter(e) }
           >
             sort
           </button>

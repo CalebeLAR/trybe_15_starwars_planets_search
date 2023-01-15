@@ -7,12 +7,17 @@ import ContextPlanets from './ContextPlanets';
 const THREE = 3;
 function ContextPlanetsProvider({ children }) {
   const [fetchedPlanets, fetchPlanets] = useFetchPlanet();
-  const [input, changeInput, setInput, changeSort] = useInput();
+  const [input, changeInput, setInput] = useInput();
   const [numFilters, setNumFilters] = useState([]);
-  const [sortFilter, setSortFilter] = useState(['population', 'ASC']);
+  const [sortFilter, setSortFilter] = useState(
+    {
+      order: { columnSort: 'population', sort: 'ASC' },
+    },
+  );
   const allColumns = [
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ];
+
   const [valueOptions, setValueOptions] = useState(allColumns);
 
   const setFilterId = (filteredPlanets) => {
@@ -102,8 +107,22 @@ function ContextPlanetsProvider({ children }) {
   };
 
   const onButtonSortFilter = () => {
-    const { order: { columnSort, sort } } = input;
-    setSortFilter([columnSort, sort]);
+    const sortColumnValue = document.getElementById('columnSort').value;
+    const sortInputDescChecked = document.getElementById('columnSortInputDesc').checked;
+    const sortInputASCChecked = document.getElementById('columnSortInputAsc').checked;
+    if (sortInputDescChecked) {
+      setSortFilter({ order: { columnSort: sortColumnValue, sort: 'DESC' } });
+    }
+    if (sortInputASCChecked) {
+      setSortFilter({ order: { columnSort: sortColumnValue, sort: 'ASC' } });
+    }
+    // if (id !== 'columnSort') {
+    //   setSortFilter([...{ order: { columnSort, sort: value } },]);
+    // }
+    // if (id === 'columnSort') {
+    //   setSortFilter([...{ order: { columnSort: value, sort } },]);
+    // }
+    // setSortFilter([...sortFilter, [columnSort, sort]]);
   };
 
   useEffect(() => {
@@ -112,9 +131,7 @@ function ContextPlanetsProvider({ children }) {
 
   const value = {
     input,
-    changeSort,
     numFilters,
-    allColumns,
     sortFilter,
     changeInput,
     valueOptions,

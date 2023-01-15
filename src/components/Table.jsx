@@ -62,7 +62,7 @@ function Table() {
   };
 
   const hofSort = (a, b) => {
-    const [columnSort, sort] = sortFilter;
+    const { order: { columnSort, sort } } = sortFilter;
     const [columnA, columnB] = mountColumn(a, b, columnSort, sort);
     if (sort === 'ASC') {
       if (columnA < columnB) {
