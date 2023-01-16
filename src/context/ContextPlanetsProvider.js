@@ -116,18 +116,11 @@ function ContextPlanetsProvider({ children }) {
     if (sortInputASCChecked) {
       setSortFilter({ order: { columnSort: sortColumnValue, sort: 'ASC' } });
     }
-    // if (id !== 'columnSort') {
-    //   setSortFilter([...{ order: { columnSort, sort: value } },]);
-    // }
-    // if (id === 'columnSort') {
-    //   setSortFilter([...{ order: { columnSort: value, sort } },]);
-    // }
-    // setSortFilter([...sortFilter, [columnSort, sort]]);
   };
 
   useEffect(() => {
     fetchPlanets();
-  }, []);
+  }, [fetchPlanets]);
 
   const value = {
     input,

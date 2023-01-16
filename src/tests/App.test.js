@@ -103,6 +103,12 @@ describe('search barr', ()=> {
 
 describe('filtros numéricos', ()=> {
 
+  const btnFilter = () => screen.getByTestId('button-filter');
+  const columnInput = () => screen.getByTestId('column-filter');
+  const comparisonInput = () => screen.getByTestId('comparison-filter');
+  const valuInput = () => screen.getByTestId('value-filter');
+  const filteredPlanets = () => screen.getAllByTestId('planet-name');
+
   beforeEach(async ()=>{
     jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest.fn().mockResolvedValue(results),
@@ -144,18 +150,51 @@ describe('filtros numéricos', ()=> {
 
   });
   test('ao clicar no botão de filtro, a tabela deve exibir so os planetas que satisfazem o filtro', () => {
-    const btnFilter = screen.getByTestId('button-filter');
-    const columnInput = screen.getByTestId('column-filter');
-    const comparisonInput = screen.getByTestId('comparison-filter');
-    const valuInput = screen.getByTestId('value-filter');
 
-    userEvent.selectOptions(columnInput,'population');
-    userEvent.selectOptions(comparisonInput,'maior que');
-    userEvent.type(valuInput,'10000000');
-    userEvent.click(btnFilter);
+    userEvent.selectOptions(columnInput(),'population');
+    userEvent.selectOptions(comparisonInput(),'maior que');
+    userEvent.type(valuInput(),'10000000');
+    userEvent.click(btnFilter());
 
-    const planetsFiltereds = screen.getAllByTestId('planet-name');
+    const expectesPlanets =  ['Endor', 'Kamino', 'Alderaan', 'Naboo', 'Coruscant' ];
 
+    filteredPlanets().forEach((planet, index)=> {
+      expect(planet.innerHTML).toBe(expectesPlanets[index])
+    })
+    expect(filteredPlanets()).toHaveLength(5);
   });
+  test('podem ser aplicados multiplos filtros, e cada um deles deve aparecer na tela', async ()=> {
+    userEvent.selectOptions(columnInput(),'population');
+    userEvent.selectOptions(comparisonInput(),'menor que');
+    userEvent.type(valuInput(),'10000000');
+    userEvent.click(btnFilter());
+
+    await screen.findByText('populationmenorque10000000')
+
+    let expectesPlanets =  ['Yavin IV', 'Tatooine', 'Bespin'];
+    
+    filteredPlanets().forEach((planet, index)=> {
+      expect(planet.innerHTML).toBe(expectesPlanets[index])
+    })
+    expect(filteredPlanets()).toHaveLength(3);
+    userEvent.clear(valuInput());
+
+    userEvent.selectOptions(columnInput(),'orbital_period');
+    userEvent.selectOptions(comparisonInput(),'igual a');
+    userEvent.type(valuInput(),'304');
+    userEvent.click(btnFilter());
+    
+    await screen.findByText('orbital_periodiguala304')
+    expectesPlanets =  ['Tatooine'];
+
+    filteredPlanets().forEach((planet, index)=> {
+      expect(planet.innerHTML).toBe(expectesPlanets[index])
+    })
+    expect(filteredPlanets()).toHaveLength(1);
+
+
+
+  })
+
   test.todo('o filtro por nome deve continuar nos planetas filtrados');
 });
