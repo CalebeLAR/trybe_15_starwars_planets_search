@@ -1,4 +1,4 @@
-/* main {
+main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -128,4 +128,4 @@
 
 #sectionFilter > button {
   margin-left: 10px;
-} */
+}
