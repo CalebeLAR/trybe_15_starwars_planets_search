@@ -17,7 +17,7 @@ Escrever testes para garantir que sua aplicação possua uma boa cobertura de te
 ## Como executar  
 **1. Clone o repositório**  
 ```shell
-    git clone git@github.com:CalebeLAR/online-store.git  
+    git clone git@github.com:CalebeLAR/try15-starwars-planets-search.git  
 ```
 
 **2. Instale as dependências**  
