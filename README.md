@@ -17,7 +17,7 @@ Nesse projeto foi desenvolvido uma lista com filtros de planetas do universo de 
 ## Como executar  
 **1. Clone o repositório**  
 ```shell
-    git clone git@github.com:CalebeLAR/git@github.com:CalebeLAR/trybe_15_starwars_planets_search.git
+    git clone git@github.com:CalebeLAR/trybe_15_starwars_planets_search.git
 ```
 
 **2. Instale as dependências**  
